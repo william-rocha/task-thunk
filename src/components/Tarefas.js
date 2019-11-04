@@ -5,7 +5,7 @@ class Tarefas extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tarefas: "",
+      tarefa: "",
       tarefas: ["tarefas", "tarefa1", "tarefa2"]
     };
     // the um bind nos metodos
