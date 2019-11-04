@@ -1,6 +1,5 @@
 import React from "react";
 
-import "./App.css";
 import Tarefas from "./components/Tarefas";
 
 function App() {
