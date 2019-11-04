@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 
 class Tarefas extends Component {
+  // crie um constructor com tarefas
   constructor(props) {
     super(props);
     this.state = {
       tarefas: "",
       tarefas: ["tarefas", "tarefa1", "tarefa2"]
     };
+    // the um bind nos metodos
     this.handleChange = this.handleChange.bind(this);
     this.addTarefa = this.addTarefa.bind(this);
   }
@@ -18,7 +20,6 @@ class Tarefas extends Component {
 
   addTarefa() {
     const { tarefa, tarefas } = this.state;
-    // primeiro limpa tarefa
     this.setState({
       tarefa: "",
       tarefas: [].concat(tarefas, tarefa)
@@ -29,7 +30,6 @@ class Tarefas extends Component {
     return (
       <div>
         <h1>{this.props.titulo}</h1>
-        {/* passano tarefa como value */}
         <input onChange={this.handleChange} value={this.state.tarefa}></input>
         <button onClick={this.addTarefa}>addicionar</button>
         <ul>
