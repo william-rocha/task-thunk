@@ -4,6 +4,8 @@ import { getAll } from "../api";
 
 import { log } from "../utils";
 
+import {} from "../redux";
+
 class App extends Component {
   state = {
     task: "",
@@ -37,7 +39,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <h1 className="App-title" ref={this.appTitle}>
-            To-do List
+            WITH REDUX
           </h1>
           <form className="App-form">
             <input
@@ -54,13 +56,30 @@ class App extends Component {
               Add
             </button>
           </form>
-          <ul className="App-list">
-            {tasks.map(task => (
-              <li className="App-item" key={task}>
-                {task}
-              </li>
-            ))}
-          </ul>
+          <table className="todo-table">
+            <thead>
+              <tr>
+                <th>Task</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tasks.map(task => (
+                <tr key={task}>
+                  <td>{task}</td>
+                  <td>
+                    <button
+                      className="todo-table-btn"
+                      onClick={() => console.log("submit")}
+                      type="button"
+                    >
+                      Done
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </header>
       </div>
     );

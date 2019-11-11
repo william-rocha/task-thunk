@@ -1,7 +1,7 @@
 import React from "react";
 import MyTarefas from "./components/MyTarefas";
 
-import Tarefas from "./components/With-hooks";
+import Tarefas from "./components/With-arrow";
 
 function App() {
   return (
