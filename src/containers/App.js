@@ -1,9 +1,9 @@
 import React from "react";
 //import MyTarefas from "./components/MyTarefas";
-import Task from "./components/With-arrow";
+import Task from "../components/With-arrow";
 
 import { Provider } from "react-redux";
-import { store } from "./redux";
+import { store } from "../store";
 
 function App() {
   return (

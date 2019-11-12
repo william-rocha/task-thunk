@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
-import { actions } from "../redux";
+import { TaskActions } from "../actions/task";
 
 class Task extends Component {
   state = {
@@ -71,12 +71,12 @@ class Task extends Component {
 }
 
 const mapStateToProps = state => ({
-  tasks: state.todoReducer.tasks
+  tasks: state.taskReducers.tasks
 });
 
 const mapDispatchToProps = dispatch => ({
-  add: bindActionCreators(actions.add, dispatch),
-  remove: bindActionCreators(actions.remove, dispatch)
+  add: bindActionCreators(TaskActions.add, dispatch),
+  remove: bindActionCreators(TaskActions.remove, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Task);
