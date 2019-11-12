@@ -1,108 +1,82 @@
-import React, { Component, createRef } from "react";
+import React, { Component } from "react";
 
-import { getAll } from "../api";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
-import { log } from "../utils";
+import { actions } from "../redux";
 
-import { store, actions } from "../redux";
-
-console.log(store);
-
-class App extends Component {
+class Task extends Component {
   state = {
-    task: "",
-    tasks: []
+    task: ""
   };
 
-  constructor(props) {
-    super(props);
-
-    this.appTitle = createRef();
-  }
-
-  componentDidMount() {
-    store.subscribe(() => {
-      this.setState({
-        task: "",
-        tasks: store.getState().taskReducer.tasks
-      });
-    });
-
-    const { current } = this.appTitle;
-    if (current) {
-      current.addEventListener("click", log);
-    }
-  }
-
-  componentWillUnmount() {
-    const { current } = this.appTitle;
-    if (current) {
-      current.removeEventListener("click", log);
-    }
-  }
-
   render() {
-    const { task, tasks } = this.state;
+    const { tasks } = this.props;
+    const { task } = this.state;
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title" ref={this.appTitle}>
-            WITH REDUX
-          </h1>
-          <form className="App-form">
-            <input
-              className="App-input"
-              onChange={this.handleInputChange}
-              type="text"
-              value={task}
-            />
-            <button
-              className="App-btn"
-              onClick={this.handleBtnClick}
-              type="button"
-            >
-              Add
-            </button>
-          </form>
-          <table className="todo-table">
-            <thead>
-              <tr>
-                <th>Task</th>
-                <th>Actions</th>
+      <div className="todo">
+        <form className="todo-form" onSubmit={this.handleSubmit}>
+          <input
+            className="todo-field"
+            onChange={this.handleChange}
+            type="text"
+            value={task}
+          />
+          <button className="todo-btn" type="submit">
+            Add
+          </button>
+        </form>
+        <table className="todo-table">
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tasks.map(task => (
+              <tr key={task}>
+                <td>{task}</td>
+                <td>
+                  <button
+                    className="todo-table-btn"
+                    onClick={() => this.handleRemove(task)}
+                    type="button"
+                  >
+                    Done
+                  </button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {tasks.map(task => (
-                <tr key={task}>
-                  <td>{task}</td>
-                  <td>
-                    <button
-                      className="todo-table-btn"
-                      onClick={() => this.handleRemove(task)}
-                      type="button"
-                    >
-                      Done
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </header>
+            ))}
+          </tbody>
+        </table>
       </div>
     );
   }
 
-  // handleBtnClick = () => this.setState(({ task, tasks }) => ({ tasks: [].concat(tasks, task) }));
+  handleChange = event => this.setState({ task: event.target.value });
 
-  handleBtnClick = () => {
-    const { task } = this.state;
-    store.dispatch(actions.add(task));
+  handleRemove = task => {
+    const { remove } = this.props;
+    remove(task);
   };
 
-  handleRemove = task => store.dispatch(actions.remove(task));
-
-  handleInputChange = e => this.setState({ task: e.target.value });
+  handleSubmit = event => {
+    const { add } = this.props;
+    const { task } = this.state;
+    event.preventDefault();
+    add(task);
+    this.setState({ task: "" });
+  };
 }
 
-export default App;
+const mapStateToProps = state => ({
+  tasks: state.todoReducer.tasks
+});
+
+const mapDispatchToProps = dispatch => ({
+  add: bindActionCreators(actions.add, dispatch),
+  remove: bindActionCreators(actions.remove, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Task);

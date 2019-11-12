@@ -1,14 +1,15 @@
 import React from "react";
-import MyTarefas from "./components/MyTarefas";
+//import MyTarefas from "./components/MyTarefas";
+import Task from "./components/With-arrow";
 
-import Tarefas from "./components/With-arrow";
+import { Provider } from "react-redux";
+import { store } from "./redux";
 
 function App() {
   return (
-    <div>
-      <Tarefas titulo="todo list" />
-      <My-tarefas></My-tarefas>
-    </div>
+    <Provider store={store}>
+      <Task titulo="todo list" />
+    </Provider>
   );
 }
 

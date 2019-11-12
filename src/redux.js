@@ -4,13 +4,13 @@ const INITIAL_STATE = {
   tasks: []
 };
 
-const taskReducer = (state = INITIAL_STATE, action) => {
+const todoReducer = (state = INITIAL_STATE, action) => {
   const { payload, type } = action;
   const { tasks } = state;
   switch (type) {
-    case "TASK_ADD":
+    case "TODO_ADD":
       return { ...state, tasks: [...tasks, payload] };
-    case "TASK_REMOVE":
+    case "TODO_REMOVE":
       return { ...state, tasks: tasks.filter(task => task !== payload) };
     default:
       return state;
@@ -18,7 +18,7 @@ const taskReducer = (state = INITIAL_STATE, action) => {
 };
 
 const reducers = combineReducers({
-  taskReducer
+  todoReducer
 });
 
 const store = createStore(reducers);
@@ -26,11 +26,11 @@ const store = createStore(reducers);
 const actions = {
   add: task => ({
     payload: task,
-    type: "TASK_ADD"
+    type: "TODO_ADD"
   }),
   remove: task => ({
     payload: task,
-    type: "TASK_REMOVE"
+    type: "TODO_REMOVE"
   })
 };
 
