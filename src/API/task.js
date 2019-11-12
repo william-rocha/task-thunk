@@ -1,0 +1,3 @@
+const taskApis = {
+  getAll: () => fetch("")
+};
