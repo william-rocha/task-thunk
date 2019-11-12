@@ -4,7 +4,9 @@ import { getAll } from "../api";
 
 import { log } from "../utils";
 
-import {} from "../redux";
+import { store, actions } from "../redux";
+
+console.log(store);
 
 class App extends Component {
   state = {
@@ -19,11 +21,17 @@ class App extends Component {
   }
 
   componentDidMount() {
+    store.subscribe(() => {
+      this.setState({
+        task: "",
+        tasks: store.getState().taskReducer.tasks
+      });
+    });
+
     const { current } = this.appTitle;
     if (current) {
       current.addEventListener("click", log);
     }
-    getAll().then(({ tasks }) => this.setState({ tasks }));
   }
 
   componentWillUnmount() {
@@ -70,7 +78,7 @@ class App extends Component {
                   <td>
                     <button
                       className="todo-table-btn"
-                      onClick={() => console.log("submit")}
+                      onClick={() => this.handleRemove(task)}
                       type="button"
                     >
                       Done
@@ -85,8 +93,14 @@ class App extends Component {
     );
   }
 
-  handleBtnClick = () =>
-    this.setState(({ task, tasks }) => ({ tasks: [].concat(tasks, task) }));
+  // handleBtnClick = () => this.setState(({ task, tasks }) => ({ tasks: [].concat(tasks, task) }));
+
+  handleBtnClick = () => {
+    const { task } = this.state;
+    store.dispatch(actions.add(task));
+  };
+
+  handleRemove = task => store.dispatch(actions.remove(task));
 
   handleInputChange = e => this.setState({ task: e.target.value });
 }
