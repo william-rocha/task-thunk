@@ -7,7 +7,7 @@ const TaskActions = {
   }),
   remove: task => ({
     payload: task,
-    type: task.TASK_REMOVE
+    type: actions.TASK_REMOVE
   })
 };
 
