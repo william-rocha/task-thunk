@@ -9,3 +9,5 @@ const taskThunks = {
 };
 
 export { taskThunks };
+
+// getAll().then(({ tasks }) => this.setState({ tasks }));
