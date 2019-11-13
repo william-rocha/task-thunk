@@ -10,6 +10,8 @@ const taskReducers = (state = INITIAL_STATE, action) => {
   switch (type) {
     case actions.TASK_ADD:
       return { ...state, tasks: [...tasks, payload] };
+    case actions.TASK_GET_ALL:
+      return { ...state, tasks: payload };
     case actions.TASK_REMOVE:
       return { ...state, tasks: tasks.filter(task => task !== payload) };
     default:

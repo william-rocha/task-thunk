@@ -5,6 +5,10 @@ const TaskActions = {
     payload: task,
     type: actions.TASK_ADD
   }),
+  getAll: tasks => ({
+    payload: tasks,
+    type: actions.TASK_GET_ALL
+  }),
   remove: task => ({
     payload: task,
     type: actions.TASK_REMOVE

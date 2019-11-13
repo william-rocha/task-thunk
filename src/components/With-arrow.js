@@ -1,15 +1,22 @@
 import React, { Component } from "react";
 
-import { bindActionCreators } from "redux";
+//import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 import { TaskActions } from "../actions/task";
+
+import { taskThunks } from "../thunks/task";
 
 class Task extends Component {
   state = {
     task: ""
   };
-
+  /*
+  componentDidMount() {
+    const { getAll } = this.props;
+    getAll();
+  }
+*/
   render() {
     const { tasks } = this.props;
     const { task } = this.state;
@@ -75,8 +82,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  add: bindActionCreators(TaskActions.add, dispatch),
-  remove: bindActionCreators(TaskActions.remove, dispatch)
+  add: task => dispatch(TaskActions.add(task)),
+  getAll: () => dispatch(taskThunks.getAll()),
+  remove: task => dispatch(TaskActions.remove(task))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Task);
