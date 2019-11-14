@@ -11,12 +11,12 @@ class Task extends Component {
   state = {
     task: ""
   };
-  /*
+
   componentDidMount() {
     const { getAll } = this.props;
     getAll();
   }
-*/
+
   render() {
     const { tasks } = this.props;
     const { task } = this.state;
